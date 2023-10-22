@@ -1,4 +1,4 @@
-package co.com.asset.model.entity;
+package co.com.asset.model.entity.notification;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

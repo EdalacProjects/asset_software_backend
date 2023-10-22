@@ -16,7 +16,7 @@ import lombok.Data;
 @Builder
 @Entity
 @Table(name = "schedule")
-public class Schedule {
+public class ScheduleEntity {
 
 	@Id
 	private Long id;
