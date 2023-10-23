@@ -1,5 +1,6 @@
 package co.com.asset.model.entity;
 
+import co.com.asset.model.dto.AssetTypeDetailDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,13 +9,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @Entity
 @Table(name = "asset_type_detail")
+@NoArgsConstructor
 public class AssetTypeDetailEntity {
 
 	@Id
@@ -34,4 +35,8 @@ public class AssetTypeDetailEntity {
 	@ManyToOne
 	@JoinColumn(insertable = false, updatable = false)
 	private PropertyEntity property;
+	
+	public AssetTypeDetailDTO getDto() {
+		return new AssetTypeDetailDTO(this.id, this.assetTypeId, this.propertyId, this.property.getDto());
+	}
 }
