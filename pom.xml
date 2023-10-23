@@ -20,8 +20,9 @@
 		<jakarta.persistence.version>3.1.0</jakarta.persistence.version>
 		<lombok.version>1.18.28</lombok.version>
 		<maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
+		<sonar.organization>edalacprojects</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
-
 	<dependencies>
 		<!--		<dependency>-->
 		<!--			<groupId>org.springframework.boot</groupId>-->
@@ -110,11 +111,6 @@
 						</exclude>
 					</excludes>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.sonar</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>2.6</version>
 			</plugin>
 		</plugins>
 	</build>
