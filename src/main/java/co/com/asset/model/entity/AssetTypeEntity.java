@@ -1,9 +1,10 @@
 package co.com.asset.model.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import co.com.asset.model.dto.AssetTypeDTO;
+import co.com.asset.model.dto.AssetTypeDetailDTO;
 import co.com.asset.model.dto.CategoryDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -36,16 +37,16 @@ public class AssetTypeEntity {
 	@JoinColumn(insertable = false, updatable = false)
 	private CategoryEntity category;
 	
-	@OneToMany(mappedBy = "assetType", cascade = CascadeType.ALL)
-	Set<AssetTypeDetailEntity> details = new HashSet<>();
+	@OneToMany(mappedBy = "assetType", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<AssetTypeDetailEntity> details;
 	
 	public AssetTypeDTO getDTO() {
 		AssetTypeDTO dto = new AssetTypeDTO();
 		dto.setId(this.id);
 		dto.setName(this.name);
 		dto.setCategory(new CategoryDTO(this.category.getId(), this.category.getName(), this.category.getDescription(), this.category.getStatus()));
-//		List<AssetTypeDetailDTO> detailsDto = this.details.stream().map(d -> new AssetTypeDetailDTO(d.getId(), d.getAssetTypeId(), d.getPropertyId(), null)).collect(Collectors.toList());
-//		dto.setDetails(detailsDto);
+		List<AssetTypeDetailDTO> detailsDto = this.details.stream().map(d -> new AssetTypeDetailDTO(d.getId(), d.getAssetTypeId(), d.getPropertyId(), d.getProperty().getDto())).collect(Collectors.toList());
+		dto.setDetails(detailsDto);
 		
 		return dto;
 	}

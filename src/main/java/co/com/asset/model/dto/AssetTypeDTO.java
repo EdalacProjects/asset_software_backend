@@ -12,7 +12,6 @@ public class AssetTypeDTO implements Serializable {
 	
 	private Long id;
 	private String name;
-	private Long categoryId;
 	private CategoryDTO category;
 	private List<AssetTypeDetailDTO> details;
 	
