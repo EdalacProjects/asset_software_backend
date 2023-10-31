@@ -1,6 +1,7 @@
 package co.com.asset.model.entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import co.com.asset.model.request.IoTTracerLogResponse;
 import jakarta.persistence.Column;
@@ -52,15 +53,18 @@ public class IoTTracerLogEntity {
 	}
 
 	public IoTTracerLogEntity(Integer iotSensorId, Long assetId, Long propertyId, String propertyName,
-			String propertyValue, LocalDateTime dateTime) {
+			String propertyValue, String dateTime) {
 		super();
 		this.iotSensorId = iotSensorId;
 		this.assetId = assetId;
 		this.propertyId = propertyId;
 		this.propertyName = propertyName;
 		this.propertyValue = propertyValue;
-		this.dateTime = dateTime;
+		this.dateTime = convertString2LocalDataTime(dateTime);
 	}
 	
-	
+	private LocalDateTime convertString2LocalDataTime(String strDate) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		return LocalDateTime.parse(strDate, formatter);
+	}
 }

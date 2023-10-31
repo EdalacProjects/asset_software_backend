@@ -12,6 +12,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import co.com.asset.model.AbstractResponseEntity;
 import co.com.asset.model.dto.IoTData;
+import jakarta.validation.constraints.Null;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,14 +27,25 @@ public class IoTTracerLogRequest extends AbstractResponseEntity implements Seria
 	private Long assetId;
 	
 //	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	private LocalDateTime dateTime;
+//	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+//	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+//	@JsonSerialize(using = LocalDateTimeSerializer.class)
+//	@Null
+//	private LocalDateTime dateTime;
+	private String dateTime;
+	
+	@Null
 	private List<IoTData> data;
 	
 	// This fields are used for queries by date
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime fromDateTime;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime toDateTime;
 	
 }

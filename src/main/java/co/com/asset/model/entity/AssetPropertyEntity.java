@@ -1,5 +1,6 @@
 package co.com.asset.model.entity;
 
+import co.com.asset.model.dto.AssetPropertyDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,4 +38,7 @@ public class AssetPropertyEntity {
 	
 	private String value;
 	
+	public AssetPropertyDTO getDTO() {
+		return new AssetPropertyDTO(this.id, this.assetId, this.propertyId, this.value);
+	}
 }

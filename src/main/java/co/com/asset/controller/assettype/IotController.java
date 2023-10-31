@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ public class IotController {
 	
 	@PostMapping
 	public void createIoTLog(@RequestBody IoTTracerLogRequest request) {
+		System.out.println(request);
 		iotService.create(request);
 	}
 	
@@ -40,7 +42,20 @@ public class IotController {
 			response.setMsgError(e.getCause().getMessage());
 			response.setResponseCode(e.getStatusCode());
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-		}
-		
+		}		
+	}
+	
+	@PatchMapping(value = "/findBy")
+	public ResponseEntity<ResponseAssetEntity<IoTTracerLogResponse>> findByIotSensorAndAssetAndDatetime(@RequestBody IoTTracerLogRequest request){
+		ResponseAssetEntity<IoTTracerLogResponse> response = new ResponseAssetEntity<>();
+		try {
+			response.setListData(iotService.findByBetweenDateTime(request));
+			response.setResponseCode(HttpStatus.OK);
+			return ResponseEntity.ok(response);
+		}catch (AssetException e) {
+			response.setMsgError(e.getCause().getMessage());
+			response.setResponseCode(e.getStatusCode());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		}		
 	}
 }
