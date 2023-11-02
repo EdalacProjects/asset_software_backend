@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.asset.model.dto.AssetDTO;
 import co.com.asset.service.asset.AssetService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
-@RestController(value = "/asset")
+@RestController
+@RequestMapping("/asset")
 @ApiResponse()
 public class AssetController {
 
@@ -25,12 +27,12 @@ public class AssetController {
 //		assetService.create(asset);
 	}
 	
-	@GetMapping(value = "/findById/{id}")
+	@GetMapping(value = "findById/{id}")
 	public AssetDTO findById(@PathVariable Long id){
 		return assetService.findById(id);
 	}
 	
-	@GetMapping(value = "/findByCode/{code}")
+	@GetMapping(value = "findByCode/{code}")
 	public AssetDTO findByCode(@PathVariable String code) {
 		return assetService.findByCode(code);
 	}

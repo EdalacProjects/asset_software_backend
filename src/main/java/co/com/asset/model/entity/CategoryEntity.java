@@ -1,5 +1,6 @@
 package co.com.asset.model.entity;
 
+import co.com.asset.model.dto.CategoryDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,4 +23,8 @@ public class CategoryEntity {
 	private String name;
 	private String description;
 	private Boolean status;
+	
+	public CategoryDTO getDTO() {
+		return new CategoryDTO(this.id, this.name, this.description, this.status);
+	}
 }

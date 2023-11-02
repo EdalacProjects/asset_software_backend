@@ -30,8 +30,8 @@ public class AssetTypeController {
 		return ResponseEntity.created(null).build();
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<AssetTypeDTO> getById(@PathVariable Long id) {
+	@GetMapping("findById/{id}")
+	public ResponseEntity<AssetTypeDTO> findById(@PathVariable Long id) {
 		return ResponseEntity.ok(assetService.getById(id));
 	}
 	
