@@ -9,7 +9,7 @@ public interface CategoryService {
 
 	void create(CategoryDTO categoryDTO) throws AssetException;
 	
-	CategoryDTO findByID(Integer id) throws AssetException;
+	CategoryDTO findByID(Long id) throws AssetException;
 	
 	List<CategoryDTO> findAll() throws AssetException;
 }

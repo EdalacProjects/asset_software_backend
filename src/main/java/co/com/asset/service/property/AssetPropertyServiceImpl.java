@@ -33,7 +33,8 @@ public class AssetPropertyServiceImpl implements AssetPropertyService {
 	@Override
 	public List<PropertyDTO> findAll() throws AssetException {
 		List<PropertyEntity> properties = (List<PropertyEntity>) repo.findAll();
-		return properties.stream().map(p -> p.getDto()).collect(Collectors.toList());
+		List<PropertyDTO> propDTO = properties.stream().map(p -> p.getDto()).collect(Collectors.toList());
+		return null;
 	}
 
 }

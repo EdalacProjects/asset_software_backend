@@ -25,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public CategoryDTO findByID(Integer id) throws AssetException {
+	public CategoryDTO findByID(Long id) throws AssetException {
 		if(id < 0 ) return null;
 		
 		Optional<CategoryEntity> entity = repo.findById(id);
