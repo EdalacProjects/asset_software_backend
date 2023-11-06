@@ -2,6 +2,7 @@ package co.com.asset.model.entity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import co.com.asset.model.dto.AssetDTO;
 import jakarta.persistence.CascadeType;
@@ -24,21 +25,23 @@ public class AssetEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String assetCode;
-	private Double purchaseValue;	
+	private Double purchaseValue;
 	private LocalDate purchaseDate;
 	private String usefullLifetime;
 	private String userResponsible;
-	private String location;	
-	private Boolean status;		
-	
+	private String location;
+	private Boolean status;
+
 	@ManyToOne
 	@JoinColumn(insertable = false, updatable = false)
 	private CategoryEntity category;
-	
+
 	@OneToMany(mappedBy = "asset", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AssetPropertyEntity> properties;
-	
+
 	public AssetDTO getDTO() {
-		return new AssetDTO(this.id, this.assetCode, this.purchaseValue, this.purchaseDate, this.usefullLifetime, this.userResponsible, this.location, this.status, null, null);
+		return new AssetDTO(this.id, this.assetCode, this.purchaseValue, this.purchaseDate, this.usefullLifetime,
+				this.userResponsible, this.location, this.status,
+				Objects.nonNull(this.category) ? this.category.getDTO() : null, null);
 	}
 }

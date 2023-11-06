@@ -3,12 +3,13 @@ package co.com.asset.service.assettype;
 import java.util.List;
 
 import co.com.asset.model.dto.AssetTypeDTO;
+import co.com.asset.model.entity.AssetTypeEntity;
 import co.com.asset.model.request.AssetTypeRequest;
 import co.com.asset.util.exception.AssetException;
 
 public interface AssetTypeService {
 
-	void create(AssetTypeRequest request) throws AssetException;
+	AssetTypeEntity create(AssetTypeRequest request) throws AssetException;
 
 	AssetTypeDTO getById(Long id) throws AssetException;
 

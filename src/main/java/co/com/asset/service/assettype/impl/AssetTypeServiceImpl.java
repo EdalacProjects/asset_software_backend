@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import co.com.asset.model.dto.AssetTypeDTO;
+import co.com.asset.model.dto.AssetTypeDetailDTO;
 import co.com.asset.model.entity.AssetTypeDetailEntity;
 import co.com.asset.model.entity.AssetTypeEntity;
 import co.com.asset.model.request.AssetTypeRequest;
-import co.com.asset.repository.AssetTypeDetailRepository;
 import co.com.asset.repository.AssetTypeRepository;
 import co.com.asset.service.assettype.AssetTypeService;
 import co.com.asset.util.exception.AssetException;
@@ -22,14 +22,13 @@ public class AssetTypeServiceImpl implements AssetTypeService {
 	@Autowired
 	private AssetTypeRepository repository;
 	
-	@Autowired
-	private AssetTypeDetailRepository assetTypeDetailRepository;
-	
-	
 	@Override
-	public void create(AssetTypeRequest request) throws AssetException {
-		// TODO Auto-generated method stub
-		
+	public AssetTypeEntity create(AssetTypeRequest request) throws AssetException {
+		AssetTypeEntity entity = new AssetTypeEntity();
+		entity.setName(request.getName());
+		entity.setCategoryId(request.getCategory().getId());
+		entity.setDetails(getAssetDetails(request.getDetails()));
+		return repository.save(entity);
 	}
 
 	@Override
@@ -54,4 +53,7 @@ public class AssetTypeServiceImpl implements AssetTypeService {
 		throw new AssetException("Asset Type records not found");		
 	}
 
+	private List<AssetTypeDetailEntity> getAssetDetails(List<AssetTypeDetailDTO> listEntry){
+		return listEntry.stream().map(e -> e.getEntity()).collect(Collectors.toList());
+	}
 }

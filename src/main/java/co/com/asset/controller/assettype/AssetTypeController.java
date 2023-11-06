@@ -27,6 +27,7 @@ public class AssetTypeController {
 	
 	@PostMapping
 	public ResponseEntity<AssetTypeDTO> create(@RequestBody AssetTypeRequest request) {
+		System.out.println("REQUEST: " + request);
 		return ResponseEntity.created(null).build();
 	}
 	
