@@ -28,7 +28,13 @@ public class AssetEntity {
 	private Double purchaseValue;
 	private LocalDate purchaseDate;
 	private String usefullLifetime;
-	private String userResponsible;
+	
+	private Long userResponsibleId;
+	
+	@ManyToOne
+	@JoinColumn(insertable = false, updatable = false)
+	private UserEntity userResponsible;
+	
 	private String location;
 	private Boolean status;
 
@@ -41,7 +47,7 @@ public class AssetEntity {
 
 	public AssetDTO getDTO() {
 		return new AssetDTO(this.id, this.assetCode, this.purchaseValue, this.purchaseDate, this.usefullLifetime,
-				this.userResponsible, this.location, this.status,
+				this.userResponsibleId, this.location, this.status,
 				Objects.nonNull(this.category) ? this.category.getDTO() : null, null);
 	}
 }

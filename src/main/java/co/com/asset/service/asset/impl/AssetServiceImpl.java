@@ -45,7 +45,7 @@ public class AssetServiceImpl implements AssetService {
 			entity.setPurchaseDate(assetDto.getPurchaseDate());
 			entity.setPurchaseValue(assetDto.getPurchaseValue());
 			entity.setUsefullLifetime(assetDto.getUsefullLifetime());
-			entity.setUserResponsible(assetDto.getUserResponsible());
+			entity.setUserResponsibleId(assetDto.getUserResponsible());
 			entity.setCategory(categoryEntity);
 			entity.setProperties(listProperties);
 			entity.setStatus(assetDto.getStatus());
