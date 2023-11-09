@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import co.com.asset.model.dto.AssetDTO;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +30,7 @@ public class AssetEntity {
 	private LocalDate purchaseDate;
 	private String usefullLifetime;
 	
+	@Column(name = "user_responsible")
 	private Long userResponsibleId;
 	
 	@ManyToOne
