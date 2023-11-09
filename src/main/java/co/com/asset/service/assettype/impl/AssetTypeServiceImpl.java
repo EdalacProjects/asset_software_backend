@@ -23,12 +23,12 @@ public class AssetTypeServiceImpl implements AssetTypeService {
 	private AssetTypeRepository repository;
 	
 	@Override
-	public AssetTypeEntity create(AssetTypeRequest request) throws AssetException {
+	public AssetTypeDTO create(AssetTypeRequest request) throws AssetException {
 		AssetTypeEntity entity = new AssetTypeEntity();
 		entity.setName(request.getName());
 		entity.setCategoryId(request.getCategory().getId());
 		entity.setDetails(getAssetDetails(request.getDetails()));
-		return repository.save(entity);
+		return repository.save(entity).getDTO();
 	}
 
 	@Override

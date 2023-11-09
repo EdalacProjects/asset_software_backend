@@ -10,7 +10,10 @@ import org.springframework.stereotype.Component;
 
 import co.com.asset.model.dto.AssetDTO;
 import co.com.asset.model.entity.AssetEntity;
+import co.com.asset.model.entity.AssetPropertyEntity;
+import co.com.asset.model.entity.CategoryEntity;
 import co.com.asset.repository.AssetRepository;
+import co.com.asset.repository.CategoryRepository;
 import co.com.asset.service.asset.AssetService;
 import co.com.asset.util.exception.AssetException;
 
@@ -20,10 +23,35 @@ public class AssetServiceImpl implements AssetService {
 	@Autowired
 	private AssetRepository assetRepository;
 	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
 	@Override
 	public void create(AssetDTO assetDto) throws AssetException {
-		// TODO Auto-generated method stub
-
+		CategoryEntity categoryEntity = null;
+		List<AssetPropertyEntity> listProperties = null;
+		if(Objects.nonNull(assetDto)) {
+			if(Objects.nonNull(assetDto.getCategory())) {
+				categoryEntity = categoryRepository.findById(assetDto.getCategory().getId()).get();	
+			}else {
+				throw new AssetException("Category not Found");
+			}
+			if(Objects.nonNull(assetDto.getProperties()) && assetDto.getProperties().isEmpty()) {
+				listProperties = assetDto.getProperties().stream().map(p -> new AssetPropertyEntity(p.getId(), p.getAssetId(), null, p.getPropertyId(), null, p.getValue())).collect(Collectors.toList());
+			}
+			AssetEntity entity = new AssetEntity();
+			entity.setAssetCode(assetDto.getAssetCode());
+			entity.setLocation(assetDto.getLocation());
+			entity.setPurchaseDate(assetDto.getPurchaseDate());
+			entity.setPurchaseValue(assetDto.getPurchaseValue());
+			entity.setUsefullLifetime(assetDto.getUsefullLifetime());
+			entity.setUserResponsible(assetDto.getUserResponsible());
+			entity.setCategory(categoryEntity);
+			entity.setProperties(listProperties);
+			entity.setStatus(assetDto.getStatus());
+			
+			assetRepository.save(entity);
+		}
 	}
 
 	@Override

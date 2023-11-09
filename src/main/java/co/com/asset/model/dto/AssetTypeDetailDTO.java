@@ -21,7 +21,7 @@ public class AssetTypeDetailDTO implements Serializable {
 
 	public AssetTypeDetailEntity getEntity() {
 		return new AssetTypeDetailEntity(this.id, this.assetTypeId, null, this.propertyId,
-				this.property.getEntity());
+				null);
 	}
 
 }

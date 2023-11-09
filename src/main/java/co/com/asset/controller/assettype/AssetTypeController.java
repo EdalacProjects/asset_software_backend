@@ -3,6 +3,7 @@ package co.com.asset.controller.assettype;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +28,12 @@ public class AssetTypeController {
 	
 	@PostMapping
 	public ResponseEntity<AssetTypeDTO> create(@RequestBody AssetTypeRequest request) {
-		System.out.println("REQUEST: " + request);
-		return ResponseEntity.created(null).build();
+		System.out.println("REQUEST: " + request);		
+		try {
+			return ResponseEntity.status(HttpStatus.CREATED).body(assetService.create(request));
+		}catch (AssetException e) {
+			throw e;
+		}		
 	}
 	
 	@GetMapping("findById/{id}")

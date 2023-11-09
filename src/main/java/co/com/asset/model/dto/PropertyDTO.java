@@ -16,7 +16,7 @@ public class PropertyDTO implements Serializable {
 	private String name;
 	private String description;
 	
-	public PropertyEntity getEntity() {
-		return new PropertyEntity(this.id, this.name, this.description);
-	}
+//	public PropertyEntity getEntity() {
+//		return new PropertyEntity(this.id, this.name, this.description);
+//	}
 }
