@@ -30,7 +30,7 @@ public class AssetEntity {
 	private LocalDate purchaseDate;
 	private String usefullLifetime;
 	
-	@Column(name = "user_responsible")
+	@Column(name = "user_responsible_id")
 	private Long userResponsibleId;
 	
 	@ManyToOne
