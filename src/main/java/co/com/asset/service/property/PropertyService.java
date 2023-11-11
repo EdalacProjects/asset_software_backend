@@ -5,7 +5,7 @@ import java.util.List;
 import co.com.asset.model.dto.PropertyDTO;
 import co.com.asset.util.exception.AssetException;
 
-public interface AssetPropertyService {
+public interface PropertyService {
 
 	void create(PropertyDTO property) throws AssetException;
 	

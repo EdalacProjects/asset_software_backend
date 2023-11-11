@@ -44,7 +44,7 @@ public class IoTTracerLogServiceImpl implements IoTTracerLogService {
 		Optional<AssetEntity> asset = assetRepository.findById(request.getAssetId());
 		Optional<IoTSensorEntity> iotSensor = iotRepository.findById(request.getIotSensorId());
 		if(asset.isPresent() && iotSensor.isPresent() && !request.getData().isEmpty()) {
-			boolean existAll = request.getData().stream().allMatch(d -> propertyRepository.findById(d.getIdProperty()).isPresent());
+			boolean existAll = request.getData().stream().allMatch(d -> propertyRepository.findById(d.getIdProperty().longValue()).isPresent());
 			if(existAll) {
 				Iterable<IoTTracerLogEntity> listEntites = request.getData()
 					.stream()

@@ -1,4 +1,4 @@
-package co.com.asset.controller.assettype;
+package co.com.asset.controller.iot;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

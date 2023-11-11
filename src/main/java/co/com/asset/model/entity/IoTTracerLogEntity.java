@@ -41,7 +41,7 @@ public class IoTTracerLogEntity {
 	@Column(name = "asset_id")
 	private Long assetId;
 	
-	private Long propertyId;
+	private Integer propertyId;
 	private String propertyName;
 	private String propertyValue;
 	
@@ -52,7 +52,7 @@ public class IoTTracerLogEntity {
 		return new IoTTracerLogResponse(iotSensorId, assetId, dateTime, propertyId, propertyName, propertyValue);
 	}
 
-	public IoTTracerLogEntity(Integer iotSensorId, Long assetId, Long propertyId, String propertyName,
+	public IoTTracerLogEntity(Integer iotSensorId, Long assetId, Integer propertyId, String propertyName,
 			String propertyValue, String dateTime) {
 		super();
 		this.iotSensorId = iotSensorId;

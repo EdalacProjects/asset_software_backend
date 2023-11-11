@@ -1,10 +1,7 @@
 package co.com.asset.model.request;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import co.com.asset.model.AbstractResponseEntity;
 import lombok.AllArgsConstructor;
@@ -26,7 +23,7 @@ public class IoTTracerLogResponse extends AbstractResponseEntity implements Seri
 //	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateTime;
 	
-	private Long idProperty;
+	private Integer idProperty;
 	private String propertyName;
 	private String propertyValue;
 	

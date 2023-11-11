@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.asset.model.dto.PropertyDTO;
-import co.com.asset.service.property.AssetPropertyService;
+import co.com.asset.service.property.PropertyService;
 import co.com.asset.util.exception.AssetException;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 public class PropertyController {
 
 	@Autowired
-	private AssetPropertyService service;
+	private PropertyService service;
 	
 	@PostMapping
 	public void create(PropertyDTO property) throws AssetException{

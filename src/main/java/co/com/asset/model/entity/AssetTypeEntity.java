@@ -9,6 +9,7 @@ import co.com.asset.model.dto.CategoryDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,17 +38,8 @@ public class AssetTypeEntity {
 	@JoinColumn(insertable = false, updatable = false)
 	private CategoryEntity category;
 	
-	@OneToMany(mappedBy = "assetType", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "assetType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<AssetTypeDetailEntity> details;
 	
-	public AssetTypeDTO getDTO() {
-		AssetTypeDTO dto = new AssetTypeDTO();
-		dto.setId(this.id);
-		dto.setName(this.name);
-		dto.setCategory(new CategoryDTO(this.category.getId(), this.category.getName(), this.category.getDescription(), this.category.getStatus()));
-		List<AssetTypeDetailDTO> detailsDto = this.details.stream().map(d -> new AssetTypeDetailDTO(d.getId(), d.getAssetTypeId(), d.getPropertyId(), d.getProperty().getDto())).collect(Collectors.toList());
-		dto.setDetails(detailsDto);
-		
-		return dto;
-	}
+	
 }

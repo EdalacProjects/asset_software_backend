@@ -1,6 +1,7 @@
 package co.com.asset.model.entity;
 
 import co.com.asset.model.dto.AssetTypeDetailDTO;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,11 +25,11 @@ public class AssetTypeDetailEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "asset_type_id")
+	@Column(name = "asset_type_id", insertable = false, updatable = false)
 	private Long assetTypeId;
 	
-	@ManyToOne
-	@JoinColumn(insertable = false, updatable = false)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(insertable = true, updatable = true)
 	private AssetTypeEntity assetType;
 	
 	@Column(name = "property_id")
@@ -38,7 +39,7 @@ public class AssetTypeDetailEntity {
 	@JoinColumn(insertable = false, updatable = false)
 	private PropertyEntity property;
 	
-	public AssetTypeDetailDTO getDto() {
-		return new AssetTypeDetailDTO(this.id, this.assetTypeId, this.propertyId, this.property.getDto());
-	}
+//	public AssetTypeDetailDTO getDto() {
+//		return new AssetTypeDetailDTO(this.id, this.assetTypeId, this.propertyId, this.property.getDto());
+//	}
 }

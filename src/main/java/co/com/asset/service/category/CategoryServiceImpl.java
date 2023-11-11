@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import co.com.asset.model.dto.CategoryDTO;
 import co.com.asset.model.entity.CategoryEntity;
+import co.com.asset.model.mapper.CategoryMapper;
 import co.com.asset.repository.CategoryRepository;
 import co.com.asset.util.exception.AssetException;
 
@@ -17,6 +18,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepository repo;
+	
+	@Autowired
+	private CategoryMapper categoryMapper;
 	
 	@Override
 	public void create(CategoryDTO dto) throws AssetException {
@@ -30,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		Optional<CategoryEntity> entity = repo.findById(id);
 		if(entity.isPresent()) {
-			return entity.get().getDTO();
+			return categoryMapper.mapperEntityToDTO(entity.get());
 		}
 		return null;
 	}
@@ -38,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<CategoryDTO> findAll() throws AssetException {
 		List<CategoryEntity> list = (List<CategoryEntity>) repo.findAll();
-		return list.stream().map(c -> c.getDTO()).collect(Collectors.toList());
+		return list.stream().map(c -> categoryMapper.mapperEntityToDTO(c)).collect(Collectors.toList());
 	}
 
 }

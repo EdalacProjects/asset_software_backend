@@ -13,7 +13,7 @@ public class IoTData implements Serializable {
 	private static final long serialVersionUID = -8675078089726032726L;
 	
 	@Id
-	private Long idProperty;
+	private Integer idProperty;
 	private String propertyName;
 	private String propertyValue;
 	

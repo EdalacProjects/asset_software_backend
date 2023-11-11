@@ -2,6 +2,8 @@ package co.com.asset.model.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import co.com.asset.model.entity.AssetTypeDetailEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,9 +21,9 @@ public class AssetTypeDetailDTO implements Serializable {
 	private Long propertyId;
 	private PropertyDTO property;
 
+	@JsonIgnore
 	public AssetTypeDetailEntity getEntity() {
-		return new AssetTypeDetailEntity(this.id, this.assetTypeId, null, this.propertyId,
-				null);
+		return new AssetTypeDetailEntity(this.id, this.assetTypeId, null, this.propertyId, null);
 	}
 
 }

@@ -2,12 +2,11 @@ package co.com.asset.model.entity;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
-import co.com.asset.model.dto.AssetDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,10 +14,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder()
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "asset")
 public class AssetEntity {
 
@@ -39,17 +44,15 @@ public class AssetEntity {
 	
 	private String location;
 	private Boolean status;
-
+	
+	@Column(name = "category_id")
+	private Long categoryId;
+	
 	@ManyToOne
 	@JoinColumn(insertable = false, updatable = false)
 	private CategoryEntity category;
 
-	@OneToMany(mappedBy = "asset", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "asset", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<AssetPropertyEntity> properties;
 
-	public AssetDTO getDTO() {
-		return new AssetDTO(this.id, this.assetCode, this.purchaseValue, this.purchaseDate, this.usefullLifetime,
-				this.userResponsibleId, this.location, this.status,
-				Objects.nonNull(this.category) ? this.category.getDTO() : null, null);
-	}
 }

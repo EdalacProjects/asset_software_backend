@@ -3,6 +3,8 @@ package co.com.asset.model.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class CountryEntity {
 	private String name;
 
 	@Transient
+	@JsonIgnore
 	private Set<StateEntity> states = new HashSet<>();
 
 	public CountryEntity(String name) {

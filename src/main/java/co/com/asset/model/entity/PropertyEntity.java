@@ -1,20 +1,21 @@
 package co.com.asset.model.entity;
 
-import co.com.asset.model.dto.PropertyDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @Entity
-@Table(name = "property_master")
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "property_master")
 public class PropertyEntity {
 
 	@Id
@@ -23,7 +24,4 @@ public class PropertyEntity {
 	private String name;
 	private String description;
 	
-	public PropertyDTO getDto() {
-		return new PropertyDTO(this.id, this.name, this.description);
-	}
 }

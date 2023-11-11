@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
+@Builder
 public class AssetDTO implements Serializable {
 
 	private static final long serialVersionUID = -2505117469180531430L;

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.asset.model.dto.AssetTypeDTO;
-import co.com.asset.model.request.AssetTypeRequest;
 import co.com.asset.service.assettype.AssetTypeService;
 import co.com.asset.util.exception.AssetException;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -27,12 +26,11 @@ public class AssetTypeController {
 	private AssetTypeService assetService;
 	
 	@PostMapping
-	public ResponseEntity<AssetTypeDTO> create(@RequestBody AssetTypeRequest request) {
-		System.out.println("REQUEST: " + request);		
+	public ResponseEntity<AssetTypeDTO> create(@RequestBody AssetTypeDTO assetTypeDTO) {
 		try {
-			return ResponseEntity.status(HttpStatus.CREATED).body(assetService.create(request));
+			return ResponseEntity.status(HttpStatus.CREATED).body(assetService.create(assetTypeDTO));
 		}catch (AssetException e) {
-			throw e;
+			throw new AssetException(e.getCause());
 		}		
 	}
 	

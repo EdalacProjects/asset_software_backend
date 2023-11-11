@@ -1,6 +1,6 @@
 package co.com.asset.model.entity;
 
-import co.com.asset.model.dto.AssetPropertyDTO;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,11 +12,13 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @Entity
 @Table(name = "asset_property")
+@NoArgsConstructor
 @AllArgsConstructor
 public class AssetPropertyEntity {
 
@@ -24,11 +26,11 @@ public class AssetPropertyEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "asset_id")
+	@Column(name = "asset_id", insertable = false, updatable = false)
 	private Long assetId;
 	
-	@ManyToOne
-	@JoinColumn(insertable = false, updatable = false)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(insertable = true, updatable = true)
 	private AssetEntity asset;
 	
 	@Column(name = "property_id")
@@ -40,7 +42,4 @@ public class AssetPropertyEntity {
 	
 	private String value;
 	
-	public AssetPropertyDTO getDTO() {
-		return new AssetPropertyDTO(this.id, this.assetId, this.propertyId, this.value);
-	}
 }

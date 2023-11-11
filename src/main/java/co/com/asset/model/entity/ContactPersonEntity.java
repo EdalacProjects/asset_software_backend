@@ -36,6 +36,6 @@ public class ContactPersonEntity {
 	private PersonEntity person;
 	
 	private String value;
-	private Boolean active;
+	private Boolean status;
 	
 }
