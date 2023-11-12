@@ -45,11 +45,11 @@ public class AssetEntity {
 	private String location;
 	private Boolean status;
 	
-	@Column(name = "category_id")
+	@Column(name = "category_id", insertable = false, updatable = false)
 	private Long categoryId;
 	
 	@ManyToOne
-	@JoinColumn(insertable = false, updatable = false)
+	@JoinColumn
 	private CategoryEntity category;
 
 	@OneToMany(mappedBy = "asset", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

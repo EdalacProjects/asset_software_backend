@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.com.asset.model.dto.AssetTypeDTO;
 import co.com.asset.model.entity.AssetTypeEntity;
@@ -24,6 +26,7 @@ public class AssetTypeServiceImpl implements AssetTypeService {
 	private AssetTypeMapper assetTypeMapper;
 	
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS)
 	public AssetTypeDTO create(AssetTypeDTO assetTypeDTO) throws AssetException {
 		repository.save(assetTypeMapper.mapperDtoToEntity(assetTypeDTO));
 		return new AssetTypeDTO();

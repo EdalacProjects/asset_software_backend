@@ -1,6 +1,5 @@
 package co.com.asset.model.entity;
 
-import co.com.asset.model.dto.AssetTypeDetailDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +28,7 @@ public class AssetTypeDetailEntity {
 	private Long assetTypeId;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(insertable = true, updatable = true)
+	@JoinColumn(updatable = false, nullable = false)
 	private AssetTypeEntity assetType;
 	
 	@Column(name = "property_id")
@@ -38,8 +37,4 @@ public class AssetTypeDetailEntity {
 	@ManyToOne
 	@JoinColumn(insertable = false, updatable = false)
 	private PropertyEntity property;
-	
-//	public AssetTypeDetailDTO getDto() {
-//		return new AssetTypeDetailDTO(this.id, this.assetTypeId, this.propertyId, this.property.getDto());
-//	}
 }

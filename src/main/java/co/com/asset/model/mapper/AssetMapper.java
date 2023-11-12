@@ -1,16 +1,12 @@
 package co.com.asset.model.mapper;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import co.com.asset.model.dto.AssetDTO;
-import co.com.asset.model.dto.AssetPropertyDTO;
 import co.com.asset.model.entity.AssetEntity;
-import co.com.asset.model.entity.AssetPropertyEntity;
 import co.com.asset.model.entity.CategoryEntity;
 import co.com.asset.model.entity.UserEntity;
 import co.com.asset.repository.CategoryRepository;
@@ -34,7 +30,7 @@ public class AssetMapper implements AbstractMapper<AssetEntity, AssetDTO> {
 
 	@Override
 	public AssetEntity mapperDtoToEntity(AssetDTO dto) {
-		return AssetEntity.builder()
+		AssetEntity assetEntity = AssetEntity.builder()
 				.id(dto.getId())
 				.assetCode(dto.getAssetCode())
 				.purchaseValue(dto.getPurchaseValue())
@@ -45,8 +41,10 @@ public class AssetMapper implements AbstractMapper<AssetEntity, AssetDTO> {
 				.status(dto.getStatus())
 				.categoryId(dto.getCategory().getId())
 				.category(this.findCategoryById(dto.getCategory().getId()))
-				.properties(null)
 				.build();
+		assetEntity.setProperties(assetPropertyMapper.convertListDTOToListEntity(dto.getProperties(), assetEntity));
+		return assetEntity;
+		
 	}
 
 	@Override
@@ -61,7 +59,7 @@ public class AssetMapper implements AbstractMapper<AssetEntity, AssetDTO> {
 			.location(entity.getLocation())
 			.status(entity.getStatus())
 			.category(categoryMapper.mapperEntityToDTO(entity.getCategory()))
-			.properties(this.convertListEntityToListDTO(entity.getProperties()))
+			.properties(assetPropertyMapper.convertListEntityToListDTO(entity.getProperties()))
 			.build();
 	}
 
@@ -81,12 +79,5 @@ public class AssetMapper implements AbstractMapper<AssetEntity, AssetDTO> {
 		} else {
 			throw new AssetException("User Not Found");
 		}
-	}
-	
-	private List<AssetPropertyDTO> convertListEntityToListDTO(List<AssetPropertyEntity> listEntity){
-		return listEntity.stream()
-				.map(p -> assetPropertyMapper.mapperEntityToDTO(p))
-				.collect(Collectors.toList());
-				
 	}
 }

@@ -1,6 +1,10 @@
 package co.com.asset.model.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,7 +13,6 @@ import co.com.asset.model.dto.AssetPropertyDTO;
 import co.com.asset.model.entity.AssetEntity;
 import co.com.asset.model.entity.AssetPropertyEntity;
 import co.com.asset.model.entity.PropertyEntity;
-import co.com.asset.repository.AssetRepository;
 import co.com.asset.repository.PropertyRepository;
 import co.com.asset.util.exception.AssetException;
 
@@ -19,14 +22,13 @@ public class AssetPropertyMapper implements AbstractMapper<AssetPropertyEntity, 
 	@Autowired
 	private PropertyRepository propertyRepository;
 	
-	@Autowired
-	private AssetRepository assetRepository;
+	private AssetEntity assetEntity;
 	
 	@Override
 	public AssetPropertyEntity mapperDtoToEntity(AssetPropertyDTO dto) {
 		return AssetPropertyEntity.builder()
 				.id(dto.getId())
-				.asset(this.findAssetById(dto.getAssetId()))
+				.asset(this.assetEntity)
 				.property(this.findPropertyById(dto.getProperty().getId()))
 				.value(dto.getValue())
 				.build();
@@ -42,14 +44,30 @@ public class AssetPropertyMapper implements AbstractMapper<AssetPropertyEntity, 
 				.build();
 	}
 	
-	private AssetEntity findAssetById(Long id) {
-		Optional<AssetEntity> assetEntity = assetRepository.findById(id);
-		if(assetEntity.isPresent()) {
-			return assetEntity.get();
-		}else {
-			throw new AssetException("asset not found");
-		}
+	public List<AssetPropertyDTO> convertListEntityToListDTO(List<AssetPropertyEntity> listEntity){
+		if(Objects.isNull(listEntity) || listEntity.isEmpty()) return new ArrayList<>();
+		return listEntity.stream()
+				.map(this::mapperEntityToDTO)
+				.collect(Collectors.toList());
+				
 	}
+	
+	public List<AssetPropertyEntity> convertListDTOToListEntity(List<AssetPropertyDTO> listDTO, AssetEntity assetEntity){
+		if(Objects.isNull(listDTO) || listDTO.isEmpty()) return new ArrayList<>();
+		this.assetEntity = assetEntity;
+		return listDTO.stream()
+				.map(this::mapperDtoToEntity)
+				.collect(Collectors.toList());
+	}
+	
+//	private AssetEntity findAssetById(Long id) {
+//		Optional<AssetEntity> assetEntity = assetRepository.findById(id);
+//		if(assetEntity.isPresent()) {
+//			return assetEntity.get();
+//		}else {
+//			throw new AssetException("asset not found");
+//		}
+//	}
 	
 	private PropertyEntity findPropertyById(Long id) {
 		Optional<PropertyEntity> optional = propertyRepository.findById(id);

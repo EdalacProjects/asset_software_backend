@@ -12,12 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.com.asset.model.dto.AssetDTO;
 import co.com.asset.model.entity.AssetEntity;
-import co.com.asset.model.entity.AssetPropertyEntity;
-import co.com.asset.model.entity.CategoryEntity;
 import co.com.asset.model.mapper.AssetMapper;
 import co.com.asset.repository.AssetRepository;
-import co.com.asset.repository.CategoryRepository;
-import co.com.asset.repository.PropertyRepository;
 import co.com.asset.service.asset.AssetService;
 import co.com.asset.util.exception.AssetException;
 
@@ -28,42 +24,14 @@ public class AssetServiceImpl implements AssetService {
 	private AssetRepository assetRepository;
 	
 	@Autowired
-	private CategoryRepository categoryRepository;
-	
-	@Autowired
-	private PropertyRepository propertyRepository;
-	
-	@Autowired
 	private AssetMapper assetMapper;
 	
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void create(AssetDTO assetDto) throws AssetException {
-		CategoryEntity categoryEntity = null;
-		List<AssetPropertyEntity> listProperties = null;
-		if(Objects.nonNull(assetDto)) {
-			if(Objects.nonNull(assetDto.getCategory())) {
-				categoryEntity = categoryRepository.findById(assetDto.getCategory().getId()).get();	
-			}else {
-				throw new AssetException("Category not Found");
-			}
-//			if(Objects.nonNull(assetDto.getProperties()) && !assetDto.getProperties().isEmpty()) {
-//				listProperties = assetDto.getProperties().stream().map(p -> new AssetPropertyEntity(p.getId(), p.getAssetId(), null, p.getPropertyId(), propertyRepository.findById(p.getPropertyId()).get(), p.getValue())).collect(Collectors.toList());
-//			}
-			
-//			AssetEntity entity = new AssetEntity();
-//			entity.setAssetCode(assetDto.getAssetCode());
-//			entity.setLocation(assetDto.getLocation());
-//			entity.setPurchaseDate(assetDto.getPurchaseDate());
-//			entity.setPurchaseValue(assetDto.getPurchaseValue());
-//			entity.setUsefullLifetime(assetDto.getUsefullLifetime());
-//			entity.setUserResponsibleId(assetDto.getUserResponsible());
-//			entity.setCategoryId(categoryEntity.getId());
-//			entity.setProperties(listProperties);
-//			entity.setStatus(assetDto.getStatus());
-			
-			
-			assetRepository.save(assetMapper.mapperDtoToEntity(assetDto));
+		if(Objects.nonNull(assetDto)) {			
+			AssetEntity entity = assetMapper.mapperDtoToEntity(assetDto);
+			assetRepository.save(entity);
 		}
 	}
 

@@ -3,6 +3,7 @@ package co.com.asset.model.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,10 +17,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@Entity
-@Table(name = "asset_property")
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "asset_property")
 public class AssetPropertyEntity {
 
 	@Id
@@ -29,15 +30,15 @@ public class AssetPropertyEntity {
 	@Column(name = "asset_id", insertable = false, updatable = false)
 	private Long assetId;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(insertable = true, updatable = true)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(columnDefinition = "asset_id", insertable = true, updatable = true)
 	private AssetEntity asset;
 	
-	@Column(name = "property_id")
+	@Column(name = "property_id", insertable = false, updatable = false)
 	private int propertyId;
 	
 	@ManyToOne
-	@JoinColumn(insertable = false, updatable = false)
+	@JoinColumn(insertable = true, updatable = true)
 	private PropertyEntity property;
 	
 	private String value;
