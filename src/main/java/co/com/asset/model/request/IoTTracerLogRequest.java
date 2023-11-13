@@ -34,16 +34,16 @@ public class IoTTracerLogRequest extends AbstractResponseEntity implements Seria
 //	private LocalDateTime dateTime;
 	private String dateTime;
 	
-	@Null
+//	@Null
 	private List<IoTData> data;
 	
 	// This fields are used for queries by date
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime fromDateTime;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime toDateTime;

@@ -45,7 +45,7 @@ public class IotController {
 		}		
 	}
 	
-	@PatchMapping(value = "/findBy")
+	@PatchMapping(value = "/findByIotSensorAndAssetAndDatetime")
 	public ResponseEntity<ResponseAssetEntity<IoTTracerLogResponse>> findByIotSensorAndAssetAndDatetime(@RequestBody IoTTracerLogRequest request){
 		ResponseAssetEntity<IoTTracerLogResponse> response = new ResponseAssetEntity<>();
 		try {
