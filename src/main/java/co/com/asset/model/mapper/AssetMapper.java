@@ -28,6 +28,9 @@ public class AssetMapper implements AbstractMapper<AssetEntity, AssetDTO> {
 	@Autowired
 	private AssetPropertyMapper assetPropertyMapper;
 
+	@Autowired
+	private UserMapper userMapper;
+
 	@Override
 	public AssetEntity mapperDtoToEntity(AssetDTO dto) {
 		AssetEntity assetEntity = AssetEntity.builder()
@@ -36,12 +39,12 @@ public class AssetMapper implements AbstractMapper<AssetEntity, AssetDTO> {
 				.purchaseValue(dto.getPurchaseValue())
 				.purchaseDate(dto.getPurchaseDate())
 				.usefullLifetime(dto.getUsefullLifetime())
-				.userResponsible(this.findUserById(dto.getUserResponsible()))
 				.location(dto.getLocation())
 				.status(dto.getStatus())
 				.categoryId(dto.getCategory().getId())
 				.category(this.findCategoryById(dto.getCategory().getId()))
 				.build();
+		assetEntity.setUserResponsible(this.findUserById(dto.getUserResponsible().getId()));
 		assetEntity.setProperties(assetPropertyMapper.convertListDTOToListEntity(dto.getProperties(), assetEntity));
 		return assetEntity;
 		
@@ -55,7 +58,7 @@ public class AssetMapper implements AbstractMapper<AssetEntity, AssetDTO> {
 			.purchaseValue(entity.getPurchaseValue())
 			.purchaseDate(entity.getPurchaseDate())
 			.usefullLifetime(entity.getUsefullLifetime())
-			.userResponsible(entity.getUserResponsibleId())
+			.userResponsible(userMapper.mapperEntityToDTO(entity.getUserResponsible()))
 			.location(entity.getLocation())
 			.status(entity.getStatus())
 			.category(categoryMapper.mapperEntityToDTO(entity.getCategory()))

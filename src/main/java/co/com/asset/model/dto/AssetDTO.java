@@ -18,7 +18,7 @@ public class AssetDTO implements Serializable {
 	private Double purchaseValue;	
 	private LocalDate purchaseDate;
 	private String usefullLifetime;
-	private Long userResponsible;
+	private UserDTO userResponsible;
 	private String location;	
 	private Boolean status;	
 	

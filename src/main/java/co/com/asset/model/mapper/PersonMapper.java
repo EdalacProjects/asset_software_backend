@@ -10,31 +10,30 @@ public class PersonMapper implements AbstractMapper<PersonEntity, PersonDTO>{
 	
 	@Override
 	public PersonEntity mapperDtoToEntity(PersonDTO personDto) {
-		PersonEntity personEntity = new PersonEntity();
-		personEntity.setId(personDto.getId());
-		personEntity.setLastName(personDto.getLastName());
-		personEntity.setBirthday(personDto.getBirthday());
-		personEntity.setGenre(personDto.getGenre());
-		personEntity.setIdentificationType(personDto.getIdentificationType());
-		personEntity.setIdentificationNumber(personDto.getIdentificationNumber());
-		personEntity.setCity(personDto.getCity());
-		personEntity.setStatus(personDto.getStatus());
-		
-		return personEntity;
+		return PersonEntity.builder()
+			.id(personDto.getId())
+			.lastName(personDto.getLastName())
+			.birthday(personDto.getBirthday())
+			.genre(personDto.getGenre())
+			.identificationType(personDto.getIdentificationType())
+			.identificationNumber(personDto.getIdentificationNumber())
+			.city(personDto.getCity())
+			.status(personDto.getStatus())
+			.build();
 	}
 
 	@Override
 	public PersonDTO mapperEntityToDTO(PersonEntity personEntity) {
-		PersonDTO persondDTO = new PersonDTO();
-		persondDTO.setId(personEntity.getId());
-		persondDTO.setLastName(personEntity.getLastName());
-		persondDTO.setBirthday(personEntity.getBirthday());
-		persondDTO.setGenre(personEntity.getGenre());
-		persondDTO.setIdentificationType(personEntity.getIdentificationType());
-		persondDTO.setIdentificationNumber(personEntity.getIdentificationNumber());
-		persondDTO.setCity(personEntity.getCity());
-		persondDTO.setStatus(personEntity.getStatus());
-		
-		return persondDTO;
+		return PersonDTO.builder()
+			.id(personEntity.getId())
+			.firstName(personEntity.getFirstName())
+			.lastName(personEntity.getLastName())
+			.birthday(personEntity.getBirthday())
+			.genre(personEntity.getGenre())
+			.identificationType(personEntity.getIdentificationType())
+			.identificationNumber(personEntity.getIdentificationNumber())
+			.city(personEntity.getCity())
+			.status(personEntity.getStatus())
+			.build();
 	}
 }
