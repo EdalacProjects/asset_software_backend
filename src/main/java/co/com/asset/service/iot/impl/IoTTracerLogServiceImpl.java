@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -26,17 +25,22 @@ import co.com.asset.util.exception.AssetException;
 public class IoTTracerLogServiceImpl implements IoTTracerLogService {
 
 	private Logger logger = LoggerFactory.getLogger(IoTTracerLogServiceImpl.class);
-	@Autowired
-	private IoTTracerLogRepository repo;
 	
-	@Autowired
+	private IoTTracerLogRepository ioTTracerRepository;
+	
 	private AssetRepository assetRepository;
 	
-	@Autowired 
 	private IoTSensorRepository iotRepository;
 	
-	@Autowired
 	private PropertyRepository propertyRepository;
+
+	public IoTTracerLogServiceImpl(IoTTracerLogRepository ioTTracerRepository, AssetRepository assetRepository,
+			IoTSensorRepository iotRepository, PropertyRepository propertyRepository) {
+		this.ioTTracerRepository = ioTTracerRepository;
+		this.assetRepository = assetRepository;
+		this.iotRepository = iotRepository;
+		this.propertyRepository = propertyRepository;
+	}
 
 	@Override
 	public void create(IoTTracerLogRequest request) throws AssetException {
@@ -51,7 +55,7 @@ public class IoTTracerLogServiceImpl implements IoTTracerLogService {
 					.map(d -> new IoTTracerLogEntity(iotSensor.get().getId(), asset.get().getId(), d.getIdProperty(), d.getPropertyName(), d.getPropertyValue(), request.getDateTime()))
 					.collect(Collectors.toList());
 				try {
-					repo.saveAll(listEntites);
+					ioTTracerRepository.saveAll(listEntites);
 					logger.info("Recors saved sucessfull");
 				}catch (AssetException e) {
 					logger.error("has ocurred an error.");
@@ -63,20 +67,19 @@ public class IoTTracerLogServiceImpl implements IoTTracerLogService {
 
 	@Override
 	public List<IoTTracerLogResponse> findByBetweenDateTime(IoTTracerLogRequest request) throws AssetException {
-		List<IoTTracerLogEntity> listEntities = repo.findAllByIotSensorIdAndAssetIdAndDateTimeGreaterThanEqualAndDateTimeLessThanEqual(request.getIotSensorId(), request.getAssetId(), request.getFromDateTime(), request.getToDateTime());
+		List<IoTTracerLogEntity> listEntities = ioTTracerRepository.findAllByIotSensorIdAndAssetIdAndDateTimeGreaterThanEqualAndDateTimeLessThanEqual(request.getIotSensorId(), request.getAssetId(), request.getFromDateTime(), request.getToDateTime());
 		try {
 			return listEntities.stream().map(e -> e.getResponseDTO()).toList();
 		}catch (AssetException e) {
-			logger.error("Has ocurred an Error: %s", e.getCause().getMessage());
+			logger.error("Has ocurred an Error: {}", e.getCause().getMessage());
 			throw new AssetException(e.getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
 	}
 
 	@Override
 	public List<IoTTracerLogResponse> findAll() throws AssetException {
-		List<IoTTracerLogEntity> listEntities = (List<IoTTracerLogEntity>) repo.findAll();
-		List<IoTTracerLogResponse> listDto = listEntities.stream().map(e -> e.getResponseDTO()).toList();
-		return listDto;
+		List<IoTTracerLogEntity> listEntities = (List<IoTTracerLogEntity>) ioTTracerRepository.findAll();
+		return listEntities.stream().map(e -> e.getResponseDTO()).toList();
 	}
 
 }

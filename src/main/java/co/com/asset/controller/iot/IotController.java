@@ -1,6 +1,5 @@
 package co.com.asset.controller.iot;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,12 +21,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @ApiResponse
 public class IotController {
 
-	@Autowired
 	private IoTTracerLogService iotService;
 	
+	public IotController(IoTTracerLogService iotService) {
+		this.iotService = iotService;
+	}
+
 	@PostMapping
 	public void createIoTLog(@RequestBody IoTTracerLogRequest request) {
-		System.out.println(request);
 		iotService.create(request);
 	}
 	

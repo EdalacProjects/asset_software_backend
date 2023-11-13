@@ -29,14 +29,10 @@ public class AssetException extends RuntimeException {
 	
 	public AssetException(String message, HttpStatus statusCode) {
 		super(message);
-		this.statusCode = statusCode;
+		this.statusCode = HttpStatus.NOT_FOUND;;
 	}
 
 	public HttpStatus getStatusCode() {
 		return statusCode;
-	}
-
-	public void setStatusCode(HttpStatus statusCode) {
-		this.statusCode = statusCode;
 	}
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import co.com.asset.model.dto.UserDTO;
@@ -16,12 +15,16 @@ import co.com.asset.util.exception.AssetException;
 @Component
 public class UserServiceImpl implements UserService {
 
-	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
 	private UserMapper userMapper;
 	
+	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+		super();
+		this.userRepository = userRepository;
+		this.userMapper = userMapper;
+	}
+
 	@Override
 	public void create(UserDTO userDto) throws AssetException {
 		// TODO Auto-generated method stub

@@ -34,6 +34,6 @@ public class WorkOrderDetailEntity {
 	private LocalDate serviceDateTimeStart;
 	private LocalDate serviceDateTimeEnd;
 	
-	private String AttendedBy;
+	private String attendedBy;
 	
 }

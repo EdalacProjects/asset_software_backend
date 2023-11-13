@@ -2,7 +2,6 @@ package co.com.asset.controller.assettype;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +21,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @ApiResponse
 public class AssetTypeController {
 
-	@Autowired
 	private AssetTypeService assetService;
 	
+	public AssetTypeController(AssetTypeService assetService) {
+		this.assetService = assetService;
+	}
+
 	@PostMapping
 	public ResponseEntity<AssetTypeDTO> create(@RequestBody AssetTypeDTO assetTypeDTO) {
 		try {

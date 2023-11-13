@@ -3,10 +3,7 @@ package co.com.asset.service.assetproperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import co.com.asset.model.dto.AssetPropertyDTO;
@@ -19,12 +16,16 @@ import co.com.asset.util.exception.AssetException;
 @Component
 public class AssetPropertyServiceImpl implements AssetPropertyService {
 
-	@Autowired
 	private AssetPropertyRepository repository;
 	
-	@Autowired
 	private PropertyRepository propertyRepository;
 	
+	public AssetPropertyServiceImpl(AssetPropertyRepository repository, PropertyRepository propertyRepository) {
+		super();
+		this.repository = repository;
+		this.propertyRepository = propertyRepository;
+	}
+
 	@Override
 	public void create(List<AssetPropertyEntity> properties) throws AssetException {
 		properties.stream().forEach(p -> repository.save(p));
@@ -32,7 +33,7 @@ public class AssetPropertyServiceImpl implements AssetPropertyService {
 
 	@Override
 	public void createDTO(List<AssetPropertyDTO> propertiesDTO) throws AssetException {
-		List<AssetPropertyEntity> list = new ArrayList<AssetPropertyEntity>();
+		List<AssetPropertyEntity> list = new ArrayList<>();
 				propertiesDTO.stream()
 				.forEach(d -> {
 					PropertyEntity propertyEntity = propertyRepository.findById(d.getProperty().getId()).get();

@@ -2,7 +2,6 @@ package co.com.asset.controller.category;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +16,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @ApiResponse(description = "Categorias")
 public class CategoryController {
 	
-	@Autowired
 	private CategoryService service;
+
+	public CategoryController(CategoryService service) {
+		this.service = service;
+	}
 
 	@GetMapping("/findById/{id}")
 	public CategoryDTO findById(@PathVariable Long id) {

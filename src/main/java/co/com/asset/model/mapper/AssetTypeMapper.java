@@ -3,7 +3,6 @@ package co.com.asset.model.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import co.com.asset.model.dto.AssetTypeDTO;
@@ -15,14 +14,18 @@ import co.com.asset.repository.PropertyRepository;
 @Component
 public class AssetTypeMapper implements AbstractMapper<AssetTypeEntity, AssetTypeDTO> {
 	
-	@Autowired
 	private PropertyRepository propertyRepository;
 	
-	@Autowired
 	private CategoryMapper categoryMapper;
 	
-	@Autowired
 	private PropertyMapper propertyMapper;
+
+	public AssetTypeMapper(PropertyRepository propertyRepository, CategoryMapper categoryMapper,
+			PropertyMapper propertyMapper) {
+		this.propertyRepository = propertyRepository;
+		this.categoryMapper = categoryMapper;
+		this.propertyMapper = propertyMapper;
+	}
 
 	@Override
 	public AssetTypeEntity mapperDtoToEntity(AssetTypeDTO assetTypeDTO) {

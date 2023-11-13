@@ -16,20 +16,25 @@ import co.com.asset.util.exception.AssetException;
 @Component
 public class AssetMapper implements AbstractMapper<AssetEntity, AssetDTO> {
 
-	@Autowired
 	private CategoryMapper categoryMapper;
 
-	@Autowired
 	private CategoryRepository categoryRepository;
 
-	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired
+
 	private AssetPropertyMapper assetPropertyMapper;
 
-	@Autowired
 	private UserMapper userMapper;
+
+	public AssetMapper(CategoryMapper categoryMapper, CategoryRepository categoryRepository,
+			UserRepository userRepository, AssetPropertyMapper assetPropertyMapper, UserMapper userMapper) {
+		super();
+		this.categoryMapper = categoryMapper;
+		this.categoryRepository = categoryRepository;
+		this.userRepository = userRepository;
+		this.assetPropertyMapper = assetPropertyMapper;
+		this.userMapper = userMapper;
+	}
 
 	@Override
 	public AssetEntity mapperDtoToEntity(AssetDTO dto) {

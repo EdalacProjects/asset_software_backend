@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import co.com.asset.model.dto.CategoryDTO;
@@ -16,12 +15,16 @@ import co.com.asset.util.exception.AssetException;
 @Component
 public class CategoryServiceImpl implements CategoryService {
 
-	@Autowired
 	private CategoryRepository repo;
 	
-	@Autowired
 	private CategoryMapper categoryMapper;
 	
+	public CategoryServiceImpl(CategoryRepository repo, CategoryMapper categoryMapper) {
+		super();
+		this.repo = repo;
+		this.categoryMapper = categoryMapper;
+	}
+
 	@Override
 	public void create(CategoryDTO dto) throws AssetException {
 		CategoryEntity category = new CategoryEntity(null, dto.getName(), dto.getDescription(), dto.getStatus());

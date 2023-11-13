@@ -24,7 +24,7 @@ public class WorkOrderEntity {
 	private Long id;
 	
 	@Column(name = "status_type_id")
-	private int StatusTypeId;
+	private int statusTypeId;
 	
 	@ManyToOne
 	@JoinColumn(insertable = false, updatable = false)

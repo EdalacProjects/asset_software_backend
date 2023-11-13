@@ -19,9 +19,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @ApiResponse()
 public class AssetController {
 
-	@Autowired
 	private AssetService assetService;
 	
+	public AssetController(AssetService assetService) {
+		super();
+		this.assetService = assetService;
+	}
+
 	@PostMapping
 	public void create(@RequestBody AssetDTO asset) {
 		assetService.create(asset);

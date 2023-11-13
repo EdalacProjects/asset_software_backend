@@ -2,7 +2,6 @@ package co.com.asset.model.mapper;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import co.com.asset.model.dto.UserDTO;
@@ -14,12 +13,16 @@ import co.com.asset.util.exception.AssetException;
 @Component
 public class UserMapper implements AbstractMapper<UserEntity, UserDTO> {
 
-	@Autowired
 	private PersonRepository personRepository;
 	
-	@Autowired
 	private PersonMapper personMapper;
 	
+	public UserMapper(PersonRepository personRepository, PersonMapper personMapper) {
+		super();
+		this.personRepository = personRepository;
+		this.personMapper = personMapper;
+	}
+
 	public UserEntity mapperDtoToEntity(UserDTO userDTO) throws AssetException {
 		UserEntity userEntity = new UserEntity();
 		userEntity.setId(userDTO.getId());
