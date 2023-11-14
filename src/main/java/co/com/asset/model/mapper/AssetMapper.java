@@ -2,7 +2,6 @@ package co.com.asset.model.mapper;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import co.com.asset.model.dto.AssetDTO;

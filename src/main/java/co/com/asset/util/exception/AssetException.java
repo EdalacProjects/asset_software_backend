@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 public class AssetException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
-	private HttpStatus statusCode = HttpStatus.NOT_FOUND;
+	private HttpStatus statusCode; 
 
 	public AssetException() {
 		super();
@@ -21,6 +21,7 @@ public class AssetException extends RuntimeException {
 
 	public AssetException(String message) {
 		super(message);
+		this.statusCode = HttpStatus.NOT_FOUND;
 	}
 
 	public AssetException(Throwable cause) {
@@ -29,7 +30,7 @@ public class AssetException extends RuntimeException {
 	
 	public AssetException(String message, HttpStatus statusCode) {
 		super(message);
-		this.statusCode = HttpStatus.NOT_FOUND;;
+		this.statusCode = statusCode;
 	}
 
 	public HttpStatus getStatusCode() {

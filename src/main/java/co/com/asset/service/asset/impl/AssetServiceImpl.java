@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +19,15 @@ import co.com.asset.util.exception.AssetException;
 @Component
 public class AssetServiceImpl implements AssetService {
 
-	@Autowired
 	private AssetRepository assetRepository;
 	
-	@Autowired
 	private AssetMapper assetMapper;
 	
+	public AssetServiceImpl(AssetRepository assetRepository, AssetMapper assetMapper) {
+		this.assetRepository = assetRepository;
+		this.assetMapper = assetMapper;
+	}
+
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void create(AssetDTO assetDto) throws AssetException {

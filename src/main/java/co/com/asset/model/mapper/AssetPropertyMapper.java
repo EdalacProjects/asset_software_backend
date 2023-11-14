@@ -62,15 +62,6 @@ public class AssetPropertyMapper implements AbstractMapper<AssetPropertyEntity, 
 				.collect(Collectors.toList());
 	}
 	
-//	private AssetEntity findAssetById(Long id) {
-//		Optional<AssetEntity> assetEntity = assetRepository.findById(id);
-//		if(assetEntity.isPresent()) {
-//			return assetEntity.get();
-//		}else {
-//			throw new AssetException("asset not found");
-//		}
-//	}
-	
 	private PropertyEntity findPropertyById(Long id) {
 		Optional<PropertyEntity> optional = propertyRepository.findById(id);
 		if(optional.isPresent()) {

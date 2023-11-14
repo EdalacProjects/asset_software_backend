@@ -1,6 +1,5 @@
 package co.com.asset.service.assetproperty;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,14 +32,14 @@ public class AssetPropertyServiceImpl implements AssetPropertyService {
 
 	@Override
 	public void createDTO(List<AssetPropertyDTO> propertiesDTO) throws AssetException {
-		List<AssetPropertyEntity> list = new ArrayList<>();
-				propertiesDTO.stream()
-				.forEach(d -> {
-					PropertyEntity propertyEntity = propertyRepository.findById(d.getProperty().getId()).get();
-					if(Objects.nonNull(propertyEntity)) {
-						new AssetPropertyEntity(null, null, null, 0, null, null);
-					}
-				});
+		//TODO. Realizar la implementación
+		propertiesDTO.stream()
+		.forEach(d -> {
+			PropertyEntity propertyEntity = propertyRepository.findById(d.getProperty().getId()).get();
+			if(Objects.nonNull(propertyEntity)) {
+				new AssetPropertyEntity(null, null, null, 0, null, null);
+			}
+		});
 		
 		this.create(null);
 	}
