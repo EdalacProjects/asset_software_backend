@@ -2,7 +2,6 @@ package co.com.asset.service.assettype.impl;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -48,7 +47,7 @@ public class AssetTypeServiceImpl implements AssetTypeService {
 	public List<AssetTypeDTO> findAll() throws AssetException {
 		List<AssetTypeEntity> listAssetType = (List<AssetTypeEntity>) repository.findAll();
 		if(!listAssetType.isEmpty()) {
-			return listAssetType.stream().map(a -> assetTypeMapper.mapperEntityToDTO(a)).collect(Collectors.toList());
+			return listAssetType.stream().map(a -> assetTypeMapper.mapperEntityToDTO(a)).toList();
 		}
 		throw new AssetException("Asset Type records not found");		
 	}

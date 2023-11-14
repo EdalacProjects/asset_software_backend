@@ -60,7 +60,9 @@ public class AssetServiceImpl implements AssetService {
 	@Override
 	public List<AssetDTO> findAll() throws AssetException {
 		List<AssetEntity> listEntity = (List<AssetEntity>) assetRepository.findAll();
-		return listEntity.stream().map(a -> assetMapper.mapperEntityToDTO(a)).collect(Collectors.toList());
+		return listEntity.stream()
+			.map(a -> assetMapper.mapperEntityToDTO(a))
+			.toList();
 	}
 
 }

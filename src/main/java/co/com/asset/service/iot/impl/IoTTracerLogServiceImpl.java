@@ -2,11 +2,9 @@ package co.com.asset.service.iot.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import co.com.asset.model.entity.AssetEntity;
@@ -53,7 +51,7 @@ public class IoTTracerLogServiceImpl implements IoTTracerLogService {
 				Iterable<IoTTracerLogEntity> listEntites = request.getData()
 					.stream()
 					.map(d -> new IoTTracerLogEntity(iotSensor.get().getId(), asset.get().getId(), d.getIdProperty(), d.getPropertyName(), d.getPropertyValue(), request.getDateTime()))
-					.collect(Collectors.toList());
+					.toList();
 				try {
 					ioTTracerRepository.saveAll(listEntites);
 					logger.info("Recors saved sucessfull");
@@ -71,8 +69,8 @@ public class IoTTracerLogServiceImpl implements IoTTracerLogService {
 		try {
 			return listEntities.stream().map(e -> e.getResponseDTO()).toList();
 		}catch (AssetException e) {
-			logger.error("Has ocurred an Error: {}", e.getCause().getMessage());
-			throw new AssetException(e.getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			logger.error("Has ocurred an Error: {}", e.getMessage());
+			throw new AssetException(e);
 		}		
 	}
 

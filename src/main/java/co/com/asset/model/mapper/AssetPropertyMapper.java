@@ -50,7 +50,7 @@ public class AssetPropertyMapper implements AbstractMapper<AssetPropertyEntity, 
 		if(Objects.isNull(listEntity) || listEntity.isEmpty()) return new ArrayList<>();
 		return listEntity.stream()
 				.map(this::mapperEntityToDTO)
-				.collect(Collectors.toList());
+				.toList();
 				
 	}
 	
@@ -59,7 +59,7 @@ public class AssetPropertyMapper implements AbstractMapper<AssetPropertyEntity, 
 		this.assetEntity = assetEntity;
 		return listDTO.stream()
 				.map(this::mapperDtoToEntity)
-				.collect(Collectors.toList());
+				.toList();
 	}
 	
 	private PropertyEntity findPropertyById(Long id) {

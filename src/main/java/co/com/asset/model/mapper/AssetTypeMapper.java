@@ -43,7 +43,10 @@ public class AssetTypeMapper implements AbstractMapper<AssetTypeEntity, AssetTyp
 		dto.setId(assetTypeEntity.getId());
 		dto.setName(assetTypeEntity.getName());
 		dto.setCategory(categoryMapper.mapperEntityToDTO(assetTypeEntity.getCategory()));
-		List<AssetTypeDetailDTO> detailsDto = assetTypeEntity.getDetails().stream().map(d -> new AssetTypeDetailDTO(d.getId(), d.getAssetTypeId(), d.getPropertyId(), propertyMapper.mapperEntityToDTO(d.getProperty()))).collect(Collectors.toList());
+		List<AssetTypeDetailDTO> detailsDto = assetTypeEntity.getDetails()
+				.stream()
+				.map(d -> new AssetTypeDetailDTO(d.getId(), d.getAssetTypeId(), d.getPropertyId(), propertyMapper.mapperEntityToDTO(d.getProperty())))
+				.toList();
 		dto.setDetails(detailsDto);
 		
 		return dto;
@@ -53,6 +56,6 @@ public class AssetTypeMapper implements AbstractMapper<AssetTypeEntity, AssetTyp
 		return listEntry.stream()
 				.map(e -> new AssetTypeDetailEntity(null, e.getAssetTypeId(), assetTypeEntity, e.getPropertyId(), 
 				propertyRepository.findById(e.getPropertyId()).get()))
-				.collect(Collectors.toList());
+				.toList();
 	}
 }

@@ -2,7 +2,6 @@ package co.com.asset.service.property;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -42,7 +41,7 @@ public class PropertyServiceImpl implements PropertyService {
 	@Override
 	public List<PropertyDTO> findAll() throws AssetException {
 		List<PropertyEntity> properties = (List<PropertyEntity>) propertyRepository.findAll();
-		return properties.stream().map(p -> propertyMapper.mapperEntityToDTO(p)).collect(Collectors.toList());
+		return properties.stream().map(p -> propertyMapper.mapperEntityToDTO(p)).toList();
 	}
 
 }

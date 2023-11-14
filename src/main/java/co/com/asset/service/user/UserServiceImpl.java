@@ -2,7 +2,6 @@ package co.com.asset.service.user;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -43,7 +42,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserDTO> findAll() throws AssetException {
 		List<UserEntity> list = (List<UserEntity>)userRepository.findAll();		
-		return list.stream().map(u -> userMapper.mapperEntityToDTO(u)).collect(Collectors.toList());
+		return list.stream().map(u -> userMapper.mapperEntityToDTO(u)).toList();
 	}
 
 }

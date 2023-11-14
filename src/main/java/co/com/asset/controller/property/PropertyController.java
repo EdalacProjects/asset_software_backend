@@ -26,7 +26,7 @@ public class PropertyController {
 
 	@PostMapping
 	public void create(PropertyDTO property) throws AssetException{
-		
+		// TODO Auto-generated method stub
 	}
 	
 	@GetMapping("findById/{id}")

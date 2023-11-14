@@ -2,7 +2,6 @@ package co.com.asset.service.category;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -45,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<CategoryDTO> findAll() throws AssetException {
 		List<CategoryEntity> list = (List<CategoryEntity>) repo.findAll();
-		return list.stream().map(c -> categoryMapper.mapperEntityToDTO(c)).collect(Collectors.toList());
+		return list.stream().map(c -> categoryMapper.mapperEntityToDTO(c)).toList();
 	}
 
 }
