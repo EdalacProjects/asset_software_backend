@@ -21,7 +21,6 @@ public class AssetController {
 	private AssetService assetService;
 	
 	public AssetController(AssetService assetService) {
-		super();
 		this.assetService = assetService;
 	}
 

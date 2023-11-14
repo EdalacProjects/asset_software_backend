@@ -14,27 +14,27 @@ import co.com.asset.util.exception.AssetException;
 @Component
 public class CategoryServiceImpl implements CategoryService {
 
-	private CategoryRepository repo;
+	private CategoryRepository categoryRepository;
 	
 	private CategoryMapper categoryMapper;
 	
 	public CategoryServiceImpl(CategoryRepository repo, CategoryMapper categoryMapper) {
 		super();
-		this.repo = repo;
+		this.categoryRepository = repo;
 		this.categoryMapper = categoryMapper;
 	}
 
 	@Override
 	public void create(CategoryDTO dto) throws AssetException {
 		CategoryEntity category = new CategoryEntity(null, dto.getName(), dto.getDescription(), dto.getStatus());
-		repo.save(category);
+		categoryRepository.save(category);
 	}
 
 	@Override
 	public CategoryDTO findByID(Long id) throws AssetException {
 		if(id < 0 ) return null;
 		
-		Optional<CategoryEntity> entity = repo.findById(id);
+		Optional<CategoryEntity> entity = categoryRepository.findById(id);
 		if(entity.isPresent()) {
 			return categoryMapper.mapperEntityToDTO(entity.get());
 		}
@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<CategoryDTO> findAll() throws AssetException {
-		List<CategoryEntity> list = (List<CategoryEntity>) repo.findAll();
+		List<CategoryEntity> list = (List<CategoryEntity>) categoryRepository.findAll();
 		return list.stream().map(c -> categoryMapper.mapperEntityToDTO(c)).toList();
 	}
 
