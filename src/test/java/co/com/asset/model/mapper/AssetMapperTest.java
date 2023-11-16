@@ -28,7 +28,9 @@ import co.com.asset.util.MockUtils;
  class AssetMapperTest{
 
 	@InjectMocks
-	AssetMapper underTest;
+	AssetMapper assetMapper;
+//	private AssetMapper assetMapper;
+	
 	@Mock
 	AssetPropertyMapper assetPropertyMapper;
 	@Mock
@@ -44,7 +46,7 @@ import co.com.asset.util.MockUtils;
 	@Mock
 	PersonRepository personRepository;
 	
-	private AssetMapper assetMapper;
+	
 	private PersonMapper personMapper;
 
     @BeforeEach
