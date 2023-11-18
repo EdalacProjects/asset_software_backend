@@ -12,18 +12,20 @@ RUN apt install maven -y
 EXPOSE 8080 9090
 
 RUN mkdir /app && mkdir /source
-RUN chown 755 app:app /source && chown 755 app:app /app
-#COPY /src/ /source/src
-#COPY /pom.xml /source
+RUN chown -R app:app /source && chown -R app:app /app
+USER app
+
 WORKDIR /source
 RUN git clone https://edalac2003:'.edw1n.s0p0rt3'@github.com/EdalacProjects/asset_software_backend.git
 WORKDIR /source/asset_software_backend
 RUN mvn clean install -Dmaven.test.skip=true
-COPY target/asset_software*.jar /app
+
+COPY target/asset_software.jar /app
 COPY startup.sh /app
 
-#RUN rm -Rf /source/*
+RUN rm -Rf /source/*
 
-USER app
+WORKDIR /app
 
-ENTRYPOINT ["/bin/sh", "-c", "bash"]
+#ENTRYPOINT ["/bin/sh", "-c", "./startup.sh"]
+CMD ["/bin/bash", "/app/startup.sh"]
