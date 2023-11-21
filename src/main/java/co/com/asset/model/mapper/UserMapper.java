@@ -1,9 +1,11 @@
 package co.com.asset.model.mapper;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
+import co.com.asset.model.dto.PersonDTO;
 import co.com.asset.model.dto.UserDTO;
 import co.com.asset.model.entity.PersonEntity;
 import co.com.asset.model.entity.UserEntity;
@@ -31,22 +33,31 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDTO> {
 		userEntity.setInsertionDateTime(userDTO.getInsertionDateTime());
 		userEntity.setUpdateDateTime(userDTO.getUpdateDateTime());
 		userEntity.setStatus(userDTO.getStatus());
+		if(Objects.isNull(userDTO.getPerson())) {
+			userDTO.setPerson(PersonDTO.builder().id(0L).build());
+		}
 		userEntity.setPerson(this.findPersonById(userDTO.getPerson().getId()));
+		userEntity.setPersonId(userDTO.getPerson().getId());
 		
 		return userEntity;
 	}
 	
 	public UserDTO mapperEntityToDTO(UserEntity userEntity) throws AssetException {
-		UserDTO userDto = new UserDTO();
-		userDto.setId(userEntity.getId());
-		userDto.setUserName(userEntity.getUserName());
-		userDto.setPassword(userEntity.getPassword());
-		userDto.setInsertionDateTime(userEntity.getInsertionDateTime());
-		userDto.setUpdateDateTime(userEntity.getUpdateDateTime());
-		userDto.setStatus(userEntity.getStatus());
-		userDto.setPerson(personMapper.mapperEntityToDTO(this.findPersonById(userEntity.getPerson().getId())));
-		
-		return userDto;
+		UserDTO userDto = null;
+		if(Objects.nonNull(userEntity)) {
+			userDto = new UserDTO();
+			userDto.setId(userEntity.getId());
+			userDto.setUserName(userEntity.getUserName());
+			userDto.setPassword(userEntity.getPassword());
+			userDto.setInsertionDateTime(userEntity.getInsertionDateTime());
+			userDto.setUpdateDateTime(userEntity.getUpdateDateTime());
+			userDto.setStatus(userEntity.getStatus());
+			userDto.setPerson(personMapper.mapperEntityToDTO(this.findPersonById(userEntity.getPerson().getId())));
+			
+			return userDto;
+		}
+		return null;
+//		throw new AssetException("UserEntity in null");
 	}
 	
 	private PersonEntity findPersonById(Long id) throws AssetException{

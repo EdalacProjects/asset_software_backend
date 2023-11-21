@@ -36,8 +36,8 @@ public class AssetPropertyServiceImpl implements AssetPropertyService {
 		propertiesDTO.stream()
 		.forEach(d -> {
 			PropertyEntity propertyEntity = propertyRepository.findById(d.getProperty().getId()).get();
-			if(Objects.nonNull(propertyEntity)) {
-				new AssetPropertyEntity(null, null, null, 0, null, null);
+			if(Objects.isNull(propertyEntity)) {
+//				new AssetPropertyEntity(null, null, null, 0, null, null);
 			}
 		});
 		

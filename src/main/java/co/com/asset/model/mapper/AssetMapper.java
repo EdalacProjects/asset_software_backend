@@ -1,10 +1,12 @@
 package co.com.asset.model.mapper;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
 import co.com.asset.model.dto.AssetDTO;
+import co.com.asset.model.dto.UserDTO;
 import co.com.asset.model.entity.AssetEntity;
 import co.com.asset.model.entity.CategoryEntity;
 import co.com.asset.model.entity.UserEntity;
@@ -48,7 +50,9 @@ public class AssetMapper implements AbstractMapper<AssetEntity, AssetDTO> {
 				.categoryId(dto.getCategory().getId())
 				.category(this.findCategoryById(dto.getCategory().getId()))
 				.build();
+		if(Objects.isNull(dto.getUserResponsible())) dto.setUserResponsible(UserDTO.builder().id(0L).build());
 		assetEntity.setUserResponsible(this.findUserById(dto.getUserResponsible().getId()));
+		assetEntity.setUserResponsibleId(dto.getUserResponsible().getId());		
 		assetEntity.setProperties(assetPropertyMapper.convertListDTOToListEntity(dto.getProperties(), assetEntity));
 		return assetEntity;
 		

@@ -31,14 +31,14 @@ public class AssetPropertyEntity {
 	private Long assetId;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(columnDefinition = "asset_id", insertable = true, updatable = true)
+	@JoinColumn(columnDefinition = "asset_id", insertable = true, updatable = false)
 	private AssetEntity asset;
 	
-	@Column(name = "property_id", insertable = false, updatable = false)
-	private int propertyId;
+	@Column(name = "property_id", insertable = true, updatable = false)
+	private Long propertyId;
 	
 	@ManyToOne
-	@JoinColumn(insertable = true, updatable = true)
+	@JoinColumn(insertable = false, updatable = false)
 	private PropertyEntity property;
 	
 	private String value;

@@ -31,6 +31,7 @@ public class AssetPropertyMapper implements AbstractMapper<AssetPropertyEntity, 
 				.id(dto.getId())
 				.asset(this.assetEntity)
 				.property(this.findPropertyById(dto.getProperty().getId()))
+				.propertyId(dto.getProperty().getId())
 				.value(dto.getValue())
 				.build();
 	}
